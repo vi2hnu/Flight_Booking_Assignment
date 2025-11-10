@@ -3,11 +3,9 @@ package org.example.booking.service;
 import java.util.List;
 
 import org.example.booking.model.entity.Ticket;
-import reactor.core.publisher.Flux;
-import reactor.core.publisher.Mono;
 
 public interface TicketDetailsInterface {
-    Mono<Ticket> findTicketByPnr(String pnr);
-    public Flux<Ticket> findHistoryByEmail(String email);
-    Mono<Ticket> cancelTicket(String pnr);
+    Ticket findTicketByPnr(String pnr);
+    public List<Ticket> findHistoryByEmail(String email);
+    Ticket cancelTicket(String pnr);
 }

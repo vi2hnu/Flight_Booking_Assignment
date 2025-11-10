@@ -1,8 +1,8 @@
 package org.example.booking.repository;
 
 import org.example.booking.model.entity.AirLine;
-import org.springframework.data.repository.reactive.ReactiveCrudRepository;
+import org.springframework.data.repository.CrudRepository;
 
-public interface AirLineRepository extends ReactiveCrudRepository<AirLine, Long> {
+public interface AirLineRepository extends CrudRepository<AirLine, Long> {
 
 }

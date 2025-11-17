@@ -23,4 +23,6 @@ public class TicketController {
     public Ticket findTicketByPnr(@PathVariable String pnr) {
         return ticketDetailsInterface.findTicketByPnr(pnr);
     }
+
+
 }

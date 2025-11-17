@@ -1,4 +1,4 @@
-package org.example.booking.models.entity;
+package org.example.booking.model.entity;
 
 import jakarta.persistence.*;
 
@@ -62,6 +62,6 @@ public class Flight {
     }
 
     @ManyToOne
-    @JoinColumn(name = "id")
+    @JoinColumn(name = "airline_id")
     private AirLine airline;
 }

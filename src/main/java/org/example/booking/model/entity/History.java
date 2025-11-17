@@ -1,7 +1,7 @@
-package org.example.booking.models.entity;
+package org.example.booking.model.entity;
 
 import jakarta.persistence.*;
-import org.example.booking.models.enums.Status;
+import org.example.booking.model.enums.Status;
 
 @Entity
 public class History {
@@ -9,14 +9,14 @@ public class History {
     private long id;
 
     @ManyToOne
-    private User user;
+    private Users users;
 
     public void setId(long id) {
         this.id = id;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setUser(Users users) {
+        this.users = users;
     }
 
     public void setTicket(Ticket ticket) {
@@ -35,8 +35,8 @@ public class History {
         return ticket;
     }
 
-    public User getUser() {
-        return user;
+    public Users getUser() {
+        return users;
     }
 
     public long getId() {

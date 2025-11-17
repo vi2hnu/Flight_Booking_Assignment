@@ -1,13 +1,13 @@
-package org.example.booking.models.entity;
+package org.example.booking.model.entity;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import jakarta.persistence.Id;
-import org.example.booking.models.enums.Gender;
+import org.example.booking.model.enums.Gender;
 
 @Entity
-public class User {
+public class Users {
     @Id
     long id;
     String name;

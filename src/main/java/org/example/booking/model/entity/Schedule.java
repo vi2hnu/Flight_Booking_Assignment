@@ -1,16 +1,46 @@
-package org.example.booking.models.entity;
+package org.example.booking.model.entity;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Entity
 public class Schedule {
     @Id
     private long id;
+
+    @ManyToOne
+    @JoinColumn(name = "flight_id")
+    private Flight flight;
+
+    @ManyToOne
+    @JoinColumn(name = "from_city_id")
+    private City fromCity;
+
+    @ManyToOne
+    @JoinColumn(name = "to_city_id")
+    private City toCity;
+
+    private LocalDate departureDate;
+    private LocalDateTime departureTime;
+
+    public void setDepartureDate(LocalDate departureDate) {
+        this.departureDate = departureDate;
+    }
+
+    public LocalDate getDepartureDate() {
+        return departureDate;
+    }
+
+    private float price;
+
+    private int seatsAvailable;
+
+    private int duration;
 
     public void setId(long id) {
         this.id = id;
@@ -68,21 +98,10 @@ public class Schedule {
         return id;
     }
 
-    @ManyToOne
-    @JoinColumn(name = "flight_id")
-    private Flight flight;
-
-    @ManyToOne
-    @JoinColumn(name = "from_city_id")
-    private City fromCity;
-
-    @ManyToOne
-    @JoinColumn(name = "to_city_id")
-    private City toCity;
-
-    private LocalDateTime departureTime;
-
-    private float price;
-
-    private int seatsAvailable;
+    public void setDuration(int duration) {
+        this.duration = duration;
+    }
+    public int getDuration() {
+        return duration;
+    }
 }

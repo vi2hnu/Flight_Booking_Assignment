@@ -1,8 +1,8 @@
-package org.example.booking.models.entity;
+package org.example.booking.model.entity;
 
 import jakarta.persistence.*;
-import org.example.booking.models.enums.Gender;
-import org.example.booking.models.enums.Meal;
+import org.example.booking.model.enums.Gender;
+import org.example.booking.model.enums.Meal;
 
 @Entity
 public class Passenger {

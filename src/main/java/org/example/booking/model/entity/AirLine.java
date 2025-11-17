@@ -1,4 +1,4 @@
-package org.example.booking.models.entity;
+package org.example.booking.model.entity;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;

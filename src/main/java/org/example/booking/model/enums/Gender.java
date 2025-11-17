@@ -1,4 +1,4 @@
-package org.example.booking.models.enums;
+package org.example.booking.model.enums;
 
 public enum Gender {
     MALE,FEMALE,OTHER

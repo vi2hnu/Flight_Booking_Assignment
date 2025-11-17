@@ -9,12 +9,12 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/v1.0/flight")
-public class TicketBookingController {
+public class BookingController {
     @Autowired
     private final TicketBookingInterface ticketBookingInterface;
 
     @Autowired
-    public  TicketBookingController(TicketBookingInterface ticketBookingInterface) {
+    public BookingController(TicketBookingInterface ticketBookingInterface) {
         this.ticketBookingInterface = ticketBookingInterface;
     }
 

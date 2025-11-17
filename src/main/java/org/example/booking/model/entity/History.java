@@ -23,5 +23,6 @@ public class History {
     private Status status;
 
     public void setUser(Users user) {
+
     }
 }

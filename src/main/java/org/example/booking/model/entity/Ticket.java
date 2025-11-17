@@ -10,6 +10,24 @@ import java.util.List;
 public class Ticket {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public void setBookedByUsers(Users bookedByUsers) {
+        this.bookedByUsers = bookedByUsers;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public Users getBookedByUsers() {
+        return bookedByUsers;
+    }
+
     private String pnr;
 
     @ManyToOne

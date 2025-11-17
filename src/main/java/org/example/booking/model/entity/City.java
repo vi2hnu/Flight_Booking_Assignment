@@ -13,7 +13,7 @@ public class City {
     private String cityName;
     private String airportCode;
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -25,7 +25,7 @@ public class City {
         this.airportCode = airportCode;
     }
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 

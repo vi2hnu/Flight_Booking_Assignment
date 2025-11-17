@@ -1,5 +1,6 @@
 package org.example.booking.service;
 
+import lombok.extern.slf4j.Slf4j;
 import org.example.booking.DTO.SearchQueryDTO;
 import org.example.booking.model.entity.City;
 import org.example.booking.model.entity.Schedule;
@@ -10,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Slf4j
 @Service
 public class SearchService implements SearchInterface {
 

@@ -40,7 +40,7 @@ public class Schedule {
 
     private int duration;
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -92,7 +92,7 @@ public class Schedule {
         return flight;
     }
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 

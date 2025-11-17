@@ -10,4 +10,5 @@ import java.util.List;
 public interface ScheduleRepository extends CrudRepository<Schedule, Long> {
     List<Schedule> findByFlight_IdAndDepartureDate(Long flightId, LocalDate date);
     List<Schedule> findByDepartureDateAndFromCityAndToCity(LocalDate departureDate, City fromCity, City toCity);
+    Schedule findScheduleById(Long id);
 }

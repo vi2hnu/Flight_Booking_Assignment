@@ -21,4 +21,7 @@ public class History {
 
     @Enumerated(EnumType.STRING)
     private Status status;
+
+    public void setUser(Users user) {
+    }
 }

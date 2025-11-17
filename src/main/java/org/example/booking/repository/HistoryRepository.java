@@ -7,4 +7,5 @@ import java.util.List;
 
 public interface HistoryRepository extends CrudRepository<History, Long> {
     List<History> findAllByUsers_Id(Long id);
+    History findByTicket_Id(Long ticketId);
 }

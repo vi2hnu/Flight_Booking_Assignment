@@ -9,6 +9,7 @@ import java.util.List;
 @Entity
 public class Ticket {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private String pnr;
 
     @ManyToOne

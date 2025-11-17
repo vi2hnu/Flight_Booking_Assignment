@@ -1,5 +1,6 @@
 package org.example.booking.service;
 
+import lombok.extern.slf4j.Slf4j;
 import org.example.booking.model.entity.Schedule;
 import org.example.booking.repository.AirLineRepository;
 import org.example.booking.repository.ScheduleRepository;
@@ -17,8 +18,10 @@ public class AirLineService implements  AirLineInterface {
 
     @Override
     public Schedule addSchedule(Schedule schedule) {
+
+        //checking if there is a conflict
         List<Schedule> previousSchedule =
-                scheduleRepository.findByFlightIdAndDepartureDate(
+                scheduleRepository.findByFlight_IdAndDepartureDate(
                         schedule.getFlight().getId(),
                         schedule.getDepartureDate()
                 );

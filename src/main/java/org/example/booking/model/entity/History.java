@@ -6,7 +6,8 @@ import org.example.booking.model.enums.Status;
 @Entity
 public class History {
     @Id
-    private long id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
     @ManyToOne
     private Users users;

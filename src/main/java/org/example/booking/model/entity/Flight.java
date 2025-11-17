@@ -7,6 +7,7 @@ import java.time.Year;
 @Entity
 public class Flight {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
     private Year year;

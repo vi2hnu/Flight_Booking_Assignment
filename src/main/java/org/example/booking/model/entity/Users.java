@@ -1,15 +1,13 @@
 package org.example.booking.model.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import org.example.booking.model.enums.Gender;
 
 @Entity
 public class Users {
     @Id
-    long id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
     String name;
     String email;
     @Enumerated(EnumType.STRING)

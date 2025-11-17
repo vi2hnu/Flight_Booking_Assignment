@@ -7,8 +7,9 @@ import org.example.booking.model.enums.Meal;
 @Entity
 public class Passenger {
     @Id
-    long id;
-    String name;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+    private String name;
     @Enumerated(EnumType.STRING)
     Gender gender;
     @Enumerated(EnumType.STRING)

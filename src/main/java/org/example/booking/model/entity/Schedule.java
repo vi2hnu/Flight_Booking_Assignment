@@ -1,10 +1,14 @@
 package org.example.booking.model.entity;
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
+@Setter
+@Getter
 @Entity
 public class Schedule {
     @Id
@@ -26,80 +30,10 @@ public class Schedule {
     private LocalDate departureDate;
     private LocalDateTime departureTime;
 
-    public void setDepartureDate(LocalDate departureDate) {
-        this.departureDate = departureDate;
-    }
-
-    public LocalDate getDepartureDate() {
-        return departureDate;
-    }
-
     private float price;
 
     private int seatsAvailable;
 
     private int duration;
 
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public void setFlight(Flight flight) {
-        this.flight = flight;
-    }
-
-    public void setFromCity(City fromCity) {
-        this.fromCity = fromCity;
-    }
-
-    public void setToCity(City toCity) {
-        this.toCity = toCity;
-    }
-
-    public void setDepartureTime(LocalDateTime departureTime) {
-        this.departureTime = departureTime;
-    }
-
-    public void setPrice(float price) {
-        this.price = price;
-    }
-
-    public void setSeatsAvailable(int seatsAvailable) {
-        this.seatsAvailable = seatsAvailable;
-    }
-
-    public int getSeatsAvailable() {
-        return seatsAvailable;
-    }
-
-    public float getPrice() {
-        return price;
-    }
-
-    public LocalDateTime getDepartureTime() {
-        return departureTime;
-    }
-
-    public City getToCity() {
-        return toCity;
-    }
-
-    public City getFromCity() {
-        return fromCity;
-    }
-
-    public Flight getFlight() {
-        return flight;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setDuration(int duration) {
-        this.duration = duration;
-    }
-    public int getDuration() {
-        return duration;
-    }
 }

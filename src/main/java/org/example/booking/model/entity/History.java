@@ -1,8 +1,12 @@
 package org.example.booking.model.entity;
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 import org.example.booking.model.enums.Status;
 
+@Getter
+@Setter
 @Entity
 public class History {
     @Id
@@ -11,38 +15,6 @@ public class History {
 
     @ManyToOne
     private Users users;
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public void setUser(Users users) {
-        this.users = users;
-    }
-
-    public void setTicket(Ticket ticket) {
-        this.ticket = ticket;
-    }
-
-    public void setStatus(Status status) {
-        this.status = status;
-    }
-
-    public Status getStatus() {
-        return status;
-    }
-
-    public Ticket getTicket() {
-        return ticket;
-    }
-
-    public Users getUser() {
-        return users;
-    }
-
-    public Long getId() {
-        return id;
-    }
 
     @OneToOne
     private Ticket ticket;

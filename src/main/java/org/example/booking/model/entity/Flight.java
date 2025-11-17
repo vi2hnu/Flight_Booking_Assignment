@@ -1,9 +1,13 @@
 package org.example.booking.model.entity;
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.time.Year;
 
+@Setter
+@Getter
 @Entity
 public class Flight {
     @Id
@@ -13,54 +17,6 @@ public class Flight {
     private Year year;
     private int rows;
     private int columns;
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public void setYear(Year year) {
-        this.year = year;
-    }
-
-    public void setRows(int rows) {
-        this.rows = rows;
-    }
-
-    public void setColumns(int columns) {
-        this.columns = columns;
-    }
-
-    public void setAirline(AirLine airline) {
-        this.airline = airline;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public Year getYear() {
-        return year;
-    }
-
-    public int getRows() {
-        return rows;
-    }
-
-    public int getColumns() {
-        return columns;
-    }
-
-    public AirLine getAirline() {
-        return airline;
-    }
 
     @ManyToOne
     @JoinColumn(name = "airline_id")

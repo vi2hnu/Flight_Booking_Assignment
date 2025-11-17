@@ -1,7 +1,11 @@
 package org.example.booking.model.entity;
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 
+@Setter
+@Getter
 @Entity
 public class BookedSeats {
 
@@ -15,27 +19,14 @@ public class BookedSeats {
     @JoinColumn(name = "schedule_id")
     private Schedule schedule;
 
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public void setSeatPos(String seatPos) {
-        this.seatPos = seatPos;
-    }
-
-    public void setSchedule(Schedule schedule) {
+    public BookedSeats(Schedule schedule, String seatPosition) {
         this.schedule = schedule;
+        this.seatPos = seatPosition;
     }
 
-    public Schedule getSchedule() {
-        return schedule;
+    public BookedSeats() {
+
     }
 
-    public String getSeatPos() {
-        return seatPos;
-    }
 
-    public Long getId() {
-        return id;
-    }
 }

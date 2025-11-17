@@ -4,28 +4,16 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import lombok.Getter;
+import lombok.Setter;
 
+@Setter
+@Getter
 @Entity
 public class AirLine {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public void setAirlineName(String airlineName) {
-        this.airlineName = airlineName;
-    }
-
-    public String getAirlineName() {
-        return airlineName;
-    }
-
-    public Long getId() {
-        return id;
-    }
 
     private String airlineName;
 }

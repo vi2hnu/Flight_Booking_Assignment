@@ -1,4 +1,8 @@
 package org.example.booking.repository;
 
-public interface HistoryRepository {
+import org.example.booking.model.entity.History;
+import org.springframework.data.repository.CrudRepository;
+
+public interface HistoryRepository extends CrudRepository<History, Long> {
+
 }

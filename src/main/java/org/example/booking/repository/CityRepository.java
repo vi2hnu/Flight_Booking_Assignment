@@ -1,4 +1,7 @@
 package org.example.booking.repository;
 
-public class CityRepository {
+import org.example.booking.model.entity.City;
+import org.springframework.data.repository.CrudRepository;
+
+public interface CityRepository extends CrudRepository<City, Long> {
 }

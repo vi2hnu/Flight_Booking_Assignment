@@ -2,6 +2,7 @@ package org.example.booking.controller;
 
 import java.util.List;
 
+import jakarta.validation.Valid;
 import org.example.booking.DTO.TicketBookingDTO;
 import org.example.booking.model.entity.History;
 import org.example.booking.model.entity.Ticket;
@@ -25,7 +26,7 @@ public class BookingController {
     }
 
     @PostMapping("{flightId}")
-    public ResponseEntity<Ticket> bookFlight(@PathVariable Long flightId,@RequestBody TicketBookingDTO ticketBookingDTO){
+    public ResponseEntity<Ticket> bookFlight(@PathVariable Long flightId, @Valid @RequestBody TicketBookingDTO ticketBookingDTO){
         Ticket ticket = ticketBookingInterface.getTicket(
                 new TicketBookingDTO(
                         ticketBookingDTO.user(),

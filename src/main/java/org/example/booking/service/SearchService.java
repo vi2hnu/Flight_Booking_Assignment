@@ -2,6 +2,7 @@ package org.example.booking.service;
 
 import lombok.extern.slf4j.Slf4j;
 import org.example.booking.DTO.SearchQueryDTO;
+import org.example.booking.exception.CityNotFoundException;
 import org.example.booking.model.entity.City;
 import org.example.booking.model.entity.Schedule;
 import org.example.booking.repository.CityRepository;
@@ -23,8 +24,19 @@ public class SearchService implements SearchInterface {
 
     @Override
     public List<Schedule> search(SearchQueryDTO searchQueryDTO) {
+
         City fromCity = cityRepository.findByCityName(searchQueryDTO.fromCity());
+        //check if from city is valid
+        if (fromCity == null) {
+            throw new CityNotFoundException("City not found: " + searchQueryDTO.fromCity());
+        }
+
+        //check if to city is valid
         City toCity = cityRepository.findByCityName(searchQueryDTO.toCity());
+        if (toCity == null) {
+            throw new CityNotFoundException("City not found: " + searchQueryDTO.toCity());
+        }
+
         return scheduleRepository.findByDepartureDateAndFromCityAndToCity(searchQueryDTO.date(), fromCity, toCity);
     }
 }

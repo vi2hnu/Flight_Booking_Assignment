@@ -1,5 +1,6 @@
 package org.example.booking.controller;
 
+import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 import org.example.booking.DTO.SearchQueryDTO;
 import org.example.booking.model.entity.Schedule;
@@ -25,7 +26,7 @@ public class SearchController {
     }
 
     @PostMapping()
-    public List<Schedule> search(@RequestBody SearchQueryDTO searchQueryDTO) {
+    public List<Schedule> search(@Valid @RequestBody SearchQueryDTO searchQueryDTO) {
         log.info("Searching for flights");
         return searchInterface.search(searchQueryDTO);
     }

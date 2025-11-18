@@ -1,6 +1,7 @@
 package org.example.booking.service;
 
 import org.example.booking.DTO.TicketBookingDTO;
+import org.example.booking.exception.SeatNotAvailableException;
 import org.example.booking.model.entity.*;
 import org.example.booking.model.enums.Status;
 import org.example.booking.repository.BookedSeatsRepository;
@@ -45,17 +46,17 @@ public class TicketBookingService implements TicketBookingInterface {
                 .anyMatch(p ->
                         bookedSeatsRepository.existsBySchedule_IdAndSeatPos(outBound.getId(), p.seatPos()));
         if (alreadyBooked) {
-            throw new RuntimeException("Conflict: Seat already booked");
+            throw new SeatNotAvailableException("Conflict: Seat already booked");
         }
 
-        // Reduce seats from schedule
         int seatsToBook = ticketBookingDTO.passengers().size();
-        if (outBound.getSeatsAvailable() < seatsToBook)
-            throw new RuntimeException("Not enough seats available");
+        if(outBound.getSeatsAvailable() < seatsToBook){
+            throw new SeatNotAvailableException("Not enough seats available");
+        }
+
         outBound.setSeatsAvailable(outBound.getSeatsAvailable() - seatsToBook);
         scheduleRepository.save(outBound);
 
-        // Create Ticket
         Ticket ticket = new Ticket();
         String pnr = "PNR" + System.currentTimeMillis() + ticketBookingDTO.user().getId();
         ticket.setPnr(pnr);
@@ -66,12 +67,10 @@ public class TicketBookingService implements TicketBookingInterface {
 
         Ticket savedTicket = ticketRepository.save(ticket);
 
-        // Save booked seats
         ticketBookingDTO.passengers().forEach(p ->
                 bookedSeatsRepository.save(new BookedSeats(outBound, p.seatPos()))
         );
 
-        // Save passengers
         List<Passenger> passengerEntities = ticketBookingDTO.passengers().stream()
                 .map(pDto -> {
                     Passenger passenger = new Passenger();

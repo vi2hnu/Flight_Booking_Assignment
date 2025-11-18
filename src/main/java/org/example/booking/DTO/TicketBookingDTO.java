@@ -1,21 +1,22 @@
 package org.example.booking.DTO;
 
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 import org.example.booking.model.entity.Users;
 
 import java.util.List;
 
 public record TicketBookingDTO(
-        @NotBlank
+        @NotNull(message = "User cannot be null")
         Users user,
 
-        @NotBlank
+        @NotNull
         Long scheduleId,
 
-        @NotBlank
         Long returnTripId,
 
-        @NotBlank
+        @NotEmpty(message = "Passengers list cannot be empty")
         List<PassengerDTO>passengers) {
 
 }

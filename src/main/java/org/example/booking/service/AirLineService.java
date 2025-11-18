@@ -39,6 +39,16 @@ public class AirLineService implements  AirLineInterface {
         if(schedule.getDepartureTime().isBefore(LocalDateTime.now())){
             throw new InvalidScheduleTimeException("Invalid schedule: departure time cannot be in the past.");
         }
+
+        //check if city is valid
+        City fromCity = cityRepository.findCitiesById(schedule.getFromCity().getId());
+        City toCity = cityRepository.findCitiesById(schedule.getToCity().getId());
+        if(fromCity == null || toCity == null){
+            throw new CityNotFoundException("Invalid city");
+        }
+        schedule.setFromCity(fromCity);
+        schedule.setToCity(toCity);
+
         List<Schedule> previousSchedule =
                 scheduleRepository.findByFlight_IdAndDepartureDate(
                         schedule.getFlight().getId(),
@@ -60,13 +70,7 @@ public class AirLineService implements  AirLineInterface {
             throw new ScheduleConflictException("Conflict: schedule overlaps with existing flight timings.");
         }
 
-        City fromCity = cityRepository.findCitiesById(schedule.getFromCity().getId());
-        City toCity = cityRepository.findCitiesById(schedule.getToCity().getId());
-        if(fromCity == null || toCity == null){
-            throw new CityNotFoundException("Invalid city");
-        }
-        schedule.setFromCity(fromCity);
-        schedule.setToCity(toCity);
+
         return scheduleRepository.save(schedule);
     }
 

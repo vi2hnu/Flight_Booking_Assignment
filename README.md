@@ -207,7 +207,7 @@ A Spring Boot-based flight booking system with scheduling, ticketing, and search
 ``` json
 {
     "id": 6,
-    "pnr": "PNR10006",
+    "pnr": "PNR17634284600131",
     "bookedByUsers": {
         "id": 3,
         "name": "Vinod Patel",
@@ -405,7 +405,7 @@ A Spring Boot-based flight booking system with scheduling, ticketing, and search
 ```json
 {
     "id": 6,
-    "pnr": "PNR10006",
+    "pnr": "PNR17634284600131",
     "bookedByUsers": {
         "id": 3,
         "name": "Vinod Patel",

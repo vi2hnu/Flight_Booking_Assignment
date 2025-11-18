@@ -5,7 +5,6 @@ import java.util.List;
 import jakarta.transaction.Transactional;
 import org.example.booking.exception.TicketNotFoundException;
 import org.example.booking.exception.UsersNotFoundException;
-import org.example.booking.model.entity.History;
 import org.example.booking.model.entity.Schedule;
 import org.example.booking.model.entity.Ticket;
 import org.example.booking.model.entity.Users;
@@ -19,9 +18,6 @@ public class TicketDetailsService implements TicketDetailsInterface {
 
     @Autowired
     private TicketRepository ticketRepository;
-
-    @Autowired
-    private HistoryRepository historyRepository;
 
     @Autowired
     private UsersRepository usersRepository;
@@ -46,12 +42,12 @@ public class TicketDetailsService implements TicketDetailsInterface {
     }
 
     @Override
-    public List<History> findHistoryByEmail(String email) {
+    public List<Ticket> findHistoryByEmail(String email) {
         Users user = usersRepository.findByEmail(email);
         if(user==null){
             throw new UsersNotFoundException("User Not Found");
         }
-        return historyRepository.findAllByUsers_Id(user.getId());
+        return ticketRepository.findAllByBookedByUsers_Id(user.getId());
     }
 
     @Override
@@ -70,9 +66,6 @@ public class TicketDetailsService implements TicketDetailsInterface {
         ticketRepository.save(ticket);
         Schedule schedule = scheduleRepository.findScheduleById(ticket.getSchedule().getId());
         schedule.setSeatsAvailable(schedule.getSeatsAvailable() + ticket.getPassengers().size());
-        History history  = historyRepository.findByTicket_Id(ticket.getId());
-        history.setStatus(Status.CANCELED);
-        historyRepository.save(history);
         ticket.getPassengers().forEach(passenger -> {
         if (passenger.getSeatPosition() != null) {
             bookedSeatsRepository.deleteBySchedule_IdAndSeatPos(schedule.getId(), passenger.getSeatPosition());

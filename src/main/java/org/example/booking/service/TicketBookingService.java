@@ -5,7 +5,6 @@ import org.example.booking.exception.SeatNotAvailableException;
 import org.example.booking.model.entity.*;
 import org.example.booking.model.enums.Status;
 import org.example.booking.repository.BookedSeatsRepository;
-import org.example.booking.repository.HistoryRepository;
 import org.example.booking.repository.ScheduleRepository;
 import org.example.booking.repository.TicketRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,8 +29,6 @@ public class TicketBookingService implements TicketBookingInterface {
     @Autowired
     private TicketRepository ticketRepository;
 
-    @Autowired
-    private HistoryRepository historyRepository;
 
     @Override
     public Ticket getTicket(TicketBookingDTO ticketBookingDTO) {
@@ -84,13 +81,6 @@ public class TicketBookingService implements TicketBookingInterface {
 
         savedTicket.setPassengers(passengerEntities);
         ticketRepository.save(savedTicket);
-
-        // Create history entry
-        History history = new History();
-        history.setTicket(savedTicket);
-        history.setUser(ticketBookingDTO.user());
-        history.setStatus(Status.BOOKED);
-        historyRepository.save(history);
         return savedTicket;
     }
 

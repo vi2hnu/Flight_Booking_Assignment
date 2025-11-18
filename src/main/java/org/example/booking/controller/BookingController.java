@@ -25,8 +25,8 @@ public class BookingController {
     }
 
     @PostMapping("{flightId}")
-    public ResponseEntity<Ticket> bookFlight(@PathVariable Long flightId, @Valid @RequestBody TicketBookingDTO ticketBookingDTO){
-        Ticket ticket = ticketBookingInterface.getTicket(
+    public Ticket bookFlight(@PathVariable Long flightId, @Valid @RequestBody TicketBookingDTO ticketBookingDTO){
+        return ticketBookingInterface.getTicket(
                 new TicketBookingDTO(
                         ticketBookingDTO.user(),
                         flightId,
@@ -34,7 +34,6 @@ public class BookingController {
                         ticketBookingDTO.passengers()
                 )
         );
-        return ResponseEntity.ok(ticket);
     }
 
     @GetMapping("history/{emailId:.+}")

@@ -1,6 +1,7 @@
 package org.example.booking.service;
 
 import org.example.booking.DTO.TicketBookingDTO;
+import org.example.booking.exception.InvalidScheduleTimeException;
 import org.example.booking.exception.SeatNotAvailableException;
 import org.example.booking.model.entity.*;
 import org.example.booking.model.enums.Status;
@@ -36,6 +37,10 @@ public class TicketBookingService implements TicketBookingInterface {
         Schedule returnTrip = null;
         if(ticketBookingDTO.returnTripId() != null) {
             returnTrip = scheduleRepository.findScheduleById(ticketBookingDTO.returnTripId());
+        }
+
+        if(outBound == null) {
+            throw new InvalidScheduleTimeException("Invalid schedule");
         }
 
         // Check if seats are already booked

@@ -8,6 +8,7 @@ import org.example.booking.model.entity.Schedule;
 import org.example.booking.repository.CityRepository;
 import org.example.booking.repository.FlightRepository;
 import org.example.booking.repository.ScheduleRepository;
+import org.example.booking.service.implmentation.AirLineService;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;

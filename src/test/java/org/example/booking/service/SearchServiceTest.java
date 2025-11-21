@@ -6,6 +6,7 @@ import org.example.booking.model.entity.City;
 import org.example.booking.model.entity.Schedule;
 import org.example.booking.repository.CityRepository;
 import org.example.booking.repository.ScheduleRepository;
+import org.example.booking.service.implmentation.SearchService;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;

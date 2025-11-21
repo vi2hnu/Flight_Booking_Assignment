@@ -5,7 +5,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.example.booking.DTO.SearchQueryDTO;
 import org.example.booking.model.entity.Schedule;
 import org.example.booking.service.SearchInterface;
-import org.example.booking.service.SearchService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;

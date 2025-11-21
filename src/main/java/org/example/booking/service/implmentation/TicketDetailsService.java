@@ -1,4 +1,4 @@
-package org.example.booking.service;
+package org.example.booking.service.implmentation;
 
 import java.util.List;
 
@@ -10,6 +10,7 @@ import org.example.booking.model.entity.Ticket;
 import org.example.booking.model.entity.Users;
 import org.example.booking.model.enums.Status;
 import org.example.booking.repository.*;
+import org.example.booking.service.TicketDetailsInterface;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

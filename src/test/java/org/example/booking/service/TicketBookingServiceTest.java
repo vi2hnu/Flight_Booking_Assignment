@@ -12,6 +12,7 @@ import org.example.booking.model.enums.Status;
 import org.example.booking.repository.BookedSeatsRepository;
 import org.example.booking.repository.ScheduleRepository;
 import org.example.booking.repository.TicketRepository;
+import org.example.booking.service.implmentation.TicketBookingService;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;

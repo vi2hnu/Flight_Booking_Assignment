@@ -1,4 +1,4 @@
-package org.example.booking.service;
+package org.example.booking.service.implmentation;
 
 import org.example.booking.DTO.TicketBookingDTO;
 import org.example.booking.exception.InvalidScheduleTimeException;
@@ -8,10 +8,13 @@ import org.example.booking.model.enums.Status;
 import org.example.booking.repository.BookedSeatsRepository;
 import org.example.booking.repository.ScheduleRepository;
 import org.example.booking.repository.TicketRepository;
+import org.example.booking.service.TicketBookingInterface;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class TicketBookingService implements TicketBookingInterface {
@@ -82,7 +85,8 @@ public class TicketBookingService implements TicketBookingInterface {
                     passenger.setSeatPosition(pDto.seatPos());
                     passenger.setTicket(savedTicket);
                     return passenger;
-                }).toList();
+                })
+                .collect(Collectors.toCollection(ArrayList::new));
 
         savedTicket.setPassengers(passengerEntities);
         ticketRepository.save(savedTicket);

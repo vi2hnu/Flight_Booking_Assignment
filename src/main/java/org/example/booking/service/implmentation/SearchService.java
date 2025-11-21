@@ -1,4 +1,4 @@
-package org.example.booking.service;
+package org.example.booking.service.implmentation;
 
 import lombok.extern.slf4j.Slf4j;
 import org.example.booking.DTO.SearchQueryDTO;
@@ -7,6 +7,7 @@ import org.example.booking.model.entity.City;
 import org.example.booking.model.entity.Schedule;
 import org.example.booking.repository.CityRepository;
 import org.example.booking.repository.ScheduleRepository;
+import org.example.booking.service.SearchInterface;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

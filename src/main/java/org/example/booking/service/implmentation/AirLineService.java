@@ -1,4 +1,4 @@
-package org.example.booking.service;
+package org.example.booking.service.implmentation;
 
 import org.example.booking.exception.CityNotFoundException;
 import org.example.booking.exception.FlightNotFoundException;
@@ -10,6 +10,7 @@ import org.example.booking.model.entity.Schedule;
 import org.example.booking.repository.CityRepository;
 import org.example.booking.repository.FlightRepository;
 import org.example.booking.repository.ScheduleRepository;
+import org.example.booking.service.AirLineInterface;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,7 +18,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
-public class AirLineService implements  AirLineInterface {
+public class AirLineService implements AirLineInterface {
 
     @Autowired
     private ScheduleRepository scheduleRepository;

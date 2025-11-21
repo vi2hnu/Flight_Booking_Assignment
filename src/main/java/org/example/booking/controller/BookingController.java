@@ -10,6 +10,8 @@ import org.example.booking.service.TicketDetailsInterface;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
 
 @RestController
 @RequestMapping("/api/v1.0/flight/booking/")
@@ -25,7 +27,7 @@ public class BookingController {
     }
 
     @PostMapping("{flightId}")
-    public Ticket bookFlight(@PathVariable Long flightId, @Valid @RequestBody TicketBookingDTO ticketBookingDTO){
+    public Mono<Ticket> bookFlight(@PathVariable Long flightId, @Valid @RequestBody TicketBookingDTO ticketBookingDTO){
         return ticketBookingInterface.getTicket(
                 new TicketBookingDTO(
                         ticketBookingDTO.user(),
@@ -37,12 +39,12 @@ public class BookingController {
     }
 
     @GetMapping("history/{emailId:.+}")
-    public List<Ticket> findHistoryByEmail(@PathVariable String emailId) {
+    public Flux<Ticket> findHistoryByEmail(@PathVariable String emailId) {
         return ticketDetailsInterface.findHistoryByEmail(emailId);
     }
 
     @DeleteMapping("cancel/{pnr}")
-    public Ticket cancelTicket(@PathVariable String pnr) {
+    public Mono<Ticket> cancelTicket(@PathVariable String pnr) {
         return ticketDetailsInterface.cancelTicket(pnr);
     }
 }

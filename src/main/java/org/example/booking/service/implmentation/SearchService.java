@@ -10,6 +10,7 @@ import org.example.booking.repository.ScheduleRepository;
 import org.example.booking.service.SearchInterface;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import reactor.core.publisher.Flux;
 
 import java.util.List;
 
@@ -24,7 +25,7 @@ public class SearchService implements SearchInterface {
     private CityRepository cityRepository;
 
     @Override
-    public List<Schedule> search(SearchQueryDTO searchQueryDTO) {
+    public Flux<Schedule> search(SearchQueryDTO searchQueryDTO) {
 
         City fromCity = cityRepository.findByCityName(searchQueryDTO.fromCity());
         //check if from city is valid

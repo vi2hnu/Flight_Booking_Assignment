@@ -13,6 +13,8 @@ import org.example.booking.repository.ScheduleRepository;
 import org.example.booking.service.AirLineInterface;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -26,53 +28,52 @@ public class AirLineService implements AirLineInterface {
     private FlightRepository flightRepository;
     @Autowired
     private CityRepository cityRepository;
-
     @Override
-    public Schedule addSchedule(Schedule schedule) {
+    public Mono<Schedule> addSchedule(Schedule schedule) {
+        return Mono.fromCallable(() -> {
 
-        Flight flight = flightRepository.findFlightById(schedule.getFlight().getId());
-        //check if flight exits
-        if(flight == null){
-            throw new FlightNotFoundException("Conflict: schedule overlaps with existing flight timings.");
-        }
-        schedule.setFlight(flight);
-        //check if the time is valid
-        if(schedule.getDepartureTime().isBefore(LocalDateTime.now())){
-            throw new InvalidScheduleTimeException("Invalid schedule: departure time cannot be in the past.");
-        }
+            LocalDateTime newStart = schedule.getDepartureTime();
+            LocalDateTime newEnd   = newStart.plusMinutes(schedule.getDuration());
 
-        //check if city is valid
-        City fromCity = cityRepository.findCitiesById(schedule.getFromCity().getId());
-        City toCity = cityRepository.findCitiesById(schedule.getToCity().getId());
-        if(fromCity == null || toCity == null){
-            throw new CityNotFoundException("Invalid city");
-        }
-        schedule.setFromCity(fromCity);
-        schedule.setToCity(toCity);
+            if (newStart.isBefore(LocalDateTime.now())) {
+                throw new InvalidScheduleTimeException("Invalid schedule: departure time cannot be in the past.");
+            }
 
-        List<Schedule> previousSchedule =
-                scheduleRepository.findByFlight_IdAndDepartureDate(
-                        schedule.getFlight().getId(),
-                        schedule.getDepartureDate()
-                );
+            Flight flight = flightRepository.findFlightById(schedule.getFlight().getId());
+            if (flight == null) {
+                throw new FlightNotFoundException("Flight not found");
+            }
+            schedule.setFlight(flight);
 
+            City fromCity = cityRepository.findCitiesById(schedule.getFromCity().getId());
+            if (fromCity == null) {
+                throw new CityNotFoundException("Invalid fromCity");
+            }
+            schedule.setFromCity(fromCity);
 
-        LocalDateTime newStart = schedule.getDepartureTime();
-        LocalDateTime newEnd = newStart.plusMinutes(schedule.getDuration());
-        boolean conflict = previousSchedule.stream()
-                .anyMatch(s -> {
-                    LocalDateTime existingStart = s.getDepartureTime();
-                    LocalDateTime existingEnd   = existingStart.plusMinutes(s.getDuration());
-                    return newStart.isBefore(existingEnd) && existingStart.isBefore(newEnd);
-                });
+            City toCity = cityRepository.findCitiesById(schedule.getToCity().getId());
+            if (toCity == null) {
+                throw new CityNotFoundException("Invalid toCity");
+            }
+            schedule.setToCity(toCity);
 
-        //check if there is a conflict
-        if(conflict){
-            throw new ScheduleConflictException("Conflict: schedule overlaps with existing flight timings.");
-        }
+            List<Schedule> previous = scheduleRepository.findByFlight_IdAndDepartureDate(
+                    schedule.getFlight().getId(),
+                    schedule.getDepartureDate()
+            );
 
+            boolean conflict = previous.stream().anyMatch(existing -> {
+                LocalDateTime existingStart = existing.getDepartureTime();
+                LocalDateTime existingEnd   = existingStart.plusMinutes(existing.getDuration());
+                return newStart.isBefore(existingEnd) && existingStart.isBefore(newEnd);
+            });
 
-        return scheduleRepository.save(schedule);
+            if (conflict) {
+                throw new ScheduleConflictException("Schedule conflict detected");
+            }
+
+            return scheduleRepository.save(schedule);
+        });
     }
 
 }

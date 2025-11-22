@@ -10,6 +10,9 @@ import org.example.booking.repository.ScheduleRepository;
 import org.example.booking.service.SearchInterface;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
+import reactor.core.scheduler.Schedulers;
 
 import java.util.List;
 
@@ -24,20 +27,26 @@ public class SearchService implements SearchInterface {
     private CityRepository cityRepository;
 
     @Override
-    public List<Schedule> search(SearchQueryDTO searchQueryDTO) {
+    public Flux<Schedule> search(SearchQueryDTO searchQueryDTO) {
+        return Mono.fromCallable(() -> {
+                    City fromCity = cityRepository.findByCityName(searchQueryDTO.fromCity());
+                    if (fromCity == null) {
+                        throw new CityNotFoundException("City not found: " + searchQueryDTO.fromCity());
+                    }
 
-        City fromCity = cityRepository.findByCityName(searchQueryDTO.fromCity());
-        //check if from city is valid
-        if (fromCity == null) {
-            throw new CityNotFoundException("City not found: " + searchQueryDTO.fromCity());
-        }
+                    City toCity = cityRepository.findByCityName(searchQueryDTO.toCity());
+                    if (toCity == null) {
+                        throw new CityNotFoundException("City not found: " + searchQueryDTO.toCity());
+                    }
 
-        //check if to city is valid
-        City toCity = cityRepository.findByCityName(searchQueryDTO.toCity());
-        if (toCity == null) {
-            throw new CityNotFoundException("City not found: " + searchQueryDTO.toCity());
-        }
-
-        return scheduleRepository.findByDepartureDateAndFromCityAndToCity(searchQueryDTO.date(), fromCity, toCity);
+                    return scheduleRepository.findByDepartureDateAndFromCityAndToCity(
+                            searchQueryDTO.date(),
+                            fromCity,
+                            toCity
+                    );
+                })
+                .flatMapMany(Flux::fromIterable)
+                .subscribeOn(Schedulers.boundedElastic());
     }
+
 }

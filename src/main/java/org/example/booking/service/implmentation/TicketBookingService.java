@@ -1,5 +1,6 @@
 package org.example.booking.service.implmentation;
 
+import lombok.extern.slf4j.Slf4j;
 import org.example.booking.DTO.TicketBookingDTO;
 import org.example.booking.exception.InvalidScheduleTimeException;
 import org.example.booking.exception.SeatNotAvailableException;
@@ -16,6 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+@Slf4j
 @Service
 public class TicketBookingService implements TicketBookingInterface {
     /*

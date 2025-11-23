@@ -29,7 +29,7 @@ public class BookingController {
         return ticketBookingInterface.getTicket(
                 new TicketBookingDTO(
                         ticketBookingDTO.user(),
-                        flightId,
+                        ticketBookingDTO.scheduleId(),
                         ticketBookingDTO.returnTripId(),
                         ticketBookingDTO.passengers()
                 )

@@ -1,8 +1,11 @@
 package org.example.booking.service.implmentation;
 
+import java.time.Duration;
+import java.time.LocalDateTime;
 import java.util.List;
 
 import jakarta.transaction.Transactional;
+import org.example.booking.exception.InvalidScheduleTimeException;
 import org.example.booking.exception.TicketNotFoundException;
 import org.example.booking.exception.UsersNotFoundException;
 import org.example.booking.model.entity.Schedule;
@@ -55,6 +58,15 @@ public class TicketDetailsService implements TicketDetailsInterface {
     @Transactional
     public Ticket cancelTicket(String pnr) {
         Ticket ticket = ticketRepository.findTicketByPnr(pnr);
+        LocalDateTime currentTime = LocalDateTime.now();
+        Schedule schedule = scheduleRepository.findScheduleById(ticket.getSchedule().getId());
+
+        Duration diff = Duration.between(currentTime, schedule.getDepartureTime()).abs();
+
+        if (diff.toHours() < 24) {
+            throw new InvalidScheduleTimeException("Less than 24 hours gap");
+        }
+
         //check if ticket is valid
         if(ticket==null){
             throw new TicketNotFoundException("Invalid pnr number");
@@ -65,7 +77,6 @@ public class TicketDetailsService implements TicketDetailsInterface {
         }
         ticket.setStatus(Status.CANCELED);
         ticketRepository.save(ticket);
-        Schedule schedule = scheduleRepository.findScheduleById(ticket.getSchedule().getId());
         schedule.setSeatsAvailable(schedule.getSeatsAvailable() + ticket.getPassengers().size());
         ticket.getPassengers().forEach(passenger -> {
         if (passenger.getSeatPosition() != null) {
